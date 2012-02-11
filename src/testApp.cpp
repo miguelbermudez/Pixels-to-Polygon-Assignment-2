@@ -55,7 +55,45 @@ void testApp::gotMessage(ofMessage msg){
 
 }
 
+
 //--------------------------------------------------------------
 void testApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+//--------------------------------------------------------------
+void testApp::readAndParseCSV() 
+{
+    stock_entry stock;
+    string line;
+    int pos;
+    int index; 
+    int lineIndex;
+    
+    ifstream in("data/test.csv");
+    if (!in.is_open())
+    {
+        printf("can't open the file");
+        return;
+    }
+    
+    index = 0;
+    lineIndex = 1;
+    
+    while ( getline( in, line ) ) {
+        index = 0;
+        while ( (pos = line.find(',')) >= 0 || index == 6 ) {
+            string field = line.substr(0, pos);
+            line = line.substr(pos+1);
+                //array->push_back(field);
+            cout << index << ": " << field << endl;    //debugging
+            
+            index++;
+                //cout << "\tline: " << line << ", index: " << index << endl;   //debugging
+        }  
+        cout << endl;
+        cout << "Line: " << lineIndex << endl; //debugging
+        lineIndex++;
+    }
+    return;
 }
