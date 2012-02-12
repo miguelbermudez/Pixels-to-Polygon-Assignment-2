@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Company.h"
 
 class testApp : public ofBaseApp{
 
@@ -19,6 +20,6 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-        void readAndParseCSV();
-		
+        void readAndParseCSV(Company &c);
+        long convertDate(string dateString);
 };
