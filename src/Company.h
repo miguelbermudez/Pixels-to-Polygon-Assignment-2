@@ -43,14 +43,16 @@ class Company
     
         string name;
         vector<stock_entry> history;
+        ofTexture texture;
+        ofImage image;
     
-        void printStockHistory();
         string toString() const;
+        void printStockHistory();
     
-    private:
-        //ofTexture makeTextutre(int texWidth, int texHeight);
+        ofTexture makeTexture(int texWidth, int texHeight);
     
-        
+    private: 
+             
     
 };
 

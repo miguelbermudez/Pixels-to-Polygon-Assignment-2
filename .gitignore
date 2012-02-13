@@ -1,3 +1,5 @@
+# OSX Ignore Files
+.DS_Store
 #C++ Ignore Settings
 # Compiled Object files
 *.slo

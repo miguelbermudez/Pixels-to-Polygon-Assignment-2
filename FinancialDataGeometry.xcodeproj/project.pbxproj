@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09BCADCA14E9C6460006DBB2 /* gNoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09BCADC914E9C6460006DBB2 /* gNoise.cpp */; };
 		09EEE25F14E6FD8A002C224D /* Company.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09EEE25E14E6FD8A002C224D /* Company.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -58,6 +59,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		09BCADC814E9C63A0006DBB2 /* gNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gNoise.h; sourceTree = "<group>"; };
+		09BCADC914E9C6460006DBB2 /* gNoise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gNoise.cpp; sourceTree = "<group>"; };
 		09EEE25D14E6FD8A002C224D /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
 		09EEE25E14E6FD8A002C224D /* Company.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Company.cpp; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
+				09BCADC814E9C63A0006DBB2 /* gNoise.h */,
+				09BCADC914E9C6460006DBB2 /* gNoise.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -280,6 +285,7 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
 				09EEE25F14E6FD8A002C224D /* Company.cpp in Sources */,
+				09BCADCA14E9C6460006DBB2 /* gNoise.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,4 +22,6 @@ class testApp : public ofBaseApp{
     
         void readAndParseCSV(Company &c);
         long convertDate(string dateString);
+        
+        ofTexture test;
 };

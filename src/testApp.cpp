@@ -1,14 +1,22 @@
 #include "testApp.h"
+#include "ofMath.h"
 
 
 //--------------------------------------------------------------
 void testApp::setup(){
+    //ofBackground(64);
+    
     //create a company
     Company cGE;
     cGE.name = "GE";
+    
     readAndParseCSV(cGE);
-    cout << cGE << endl;
-    cGE.printStockHistory();
+    cGE.texture = cGE.makeTexture(512, 512); 
+    
+    cout << cGE << endl;  //debugging
+    test = cGE.texture;
+    //cGE.printStockHistory();
+    
 
 }
 
@@ -19,7 +27,7 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-
+    test.draw(1,1,512,512);
 }
 
 //--------------------------------------------------------------
@@ -121,7 +129,7 @@ void testApp::readAndParseCSV(Company &c)
     int pos;
     int index = 0; 
     int lineIndex = 0;
-    
+
     ifstream in("data/ge.csv");
     if (!in.is_open())
     {
