@@ -31,10 +31,15 @@ struct stock_entry
     float   close; 
     int     volume;
     float   adjClose;
+    float   maxOpen;
+    float   minOpen;
+    float   maxClose;
+    float   minClose;
     string  humanDate;
+    
 };
 
-const struct stock_entry STOCK_ENTRY_DEFAULT = { 0, 0, 0, 0, 0, 0, 0, "" };
+const struct stock_entry STOCK_ENTRY_DEFAULT = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "" };
 
 class Company 
 {

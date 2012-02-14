@@ -28,12 +28,17 @@ void Company::printStockHistory()
             cout << "\tEntry: " << index << endl;
             cout << "\t\tDate: " << se.date << endl;
             cout << "\t\tOpen: " << se.open << endl;
+            cout << "\t\t\tMax Open: " << se.maxOpen << endl;
+            cout << "\t\t\tMin Open: " << se.minOpen << endl;
             cout << "\t\tHigh: " << se.high << endl;
             cout << "\t\tLow: " << se.low << endl;
             cout << "\t\tClose: " << se.close << endl;
+            cout << "\t\t\tMax Close: " << se.maxClose << endl;
+            cout << "\t\t\tMin Close: " << se.minClose << endl;
             cout << "\t\tVolume: " << se.volume << endl;
             cout << "\t\tAdjClose: " << se.adjClose << endl;
             cout << "\t\tHumanDate: " << se.humanDate << endl;
+            
             cout << endl;
             index++;
         }        
@@ -52,6 +57,7 @@ ofTexture Company::makeTexture(int texWidth, int texHeight)
     unsigned char *pixels;
     pixels = new unsigned char [texWidth * texHeight];
     
+    
     //loop through pixels to populate texture data
     for (int y=0; y<texHeight; y++) {
         for (int x=0; x<texWidth; x++) {
@@ -64,10 +70,11 @@ ofTexture Company::makeTexture(int texWidth, int texHeight)
 
                 double xNoiseParam = (x * frequency) / zoom;
                 double yNoiseParam = (y / zoom) * frequency;
+                //double stockEntryContrib = 
                 
                 //getnoise += noise2(((double)x)*frequency/zoom,((double)y)/zoom*frequency)*amplitude;
                 //getnoise +=  ofNoise(xNoiseParam, yNoiseParam) * amplitude;
-                getnoise += gNoise::noise(xNoiseParam, yNoiseParam) * amplitude;
+                getnoise += gNoise::noise(xNoiseParam, yNoiseParam) * amplitude ;
             }
             //It gives a decimal value, you know, between the pixels. Like 4.2 or 5.1
             int color = (int)( (getnoise*128.0) + 128.0 ); //Convert to 0-256 values.

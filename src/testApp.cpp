@@ -7,15 +7,15 @@ void testApp::setup(){
     //ofBackground(64);
     
     //create a company
-    Company cGE;
-    cGE.name = "GE";
+    Company cAmazon;
+    cAmazon.name = "amazon";
     
-    readAndParseCSV(cGE);
-    cGE.texture = cGE.makeTexture(512, 512); 
+    readAndParseCSV(cAmazon);
+    cAmazon.texture = cAmazon.makeTexture(512, 512); 
     
-    cout << cGE << endl;  //debugging
-    test = cGE.texture;
-    //cGE.printStockHistory();
+    cout << cAmazon << endl;  //debugging
+    test = cAmazon.texture;
+    cAmazon.printStockHistory();
     
 
 }
@@ -129,8 +129,12 @@ void testApp::readAndParseCSV(Company &c)
     int pos;
     int index = 0; 
     int lineIndex = 0;
+    float entryMaxOpen = 0.0;
+    float entryMinOpen = INT_MAX;
+    float entryMaxClose = 0.0;
+    float entryMinClose = INT_MAX;
 
-    ifstream in("data/ge.csv");
+    ifstream in("data/csv/amazon.csv");
     if (!in.is_open())
     {
         printf("can't open the file");
@@ -160,6 +164,12 @@ void testApp::readAndParseCSV(Company &c)
                         break;
                     case STOCK_OPEN:
                         entry.open = atof(field.c_str());
+                        //find max and min open prices for entry
+                        if (entry.open >= entryMaxOpen) entryMaxOpen = entry.open;
+                        if (entry.open <= entryMinOpen) entryMinOpen = entry.open;
+                        entry.maxOpen = entryMaxOpen;
+                        entry.minOpen = entryMinOpen;
+                        
                         break;
                     case STOCK_HIGH:
                         entry.high = atof(field.c_str());
@@ -169,6 +179,12 @@ void testApp::readAndParseCSV(Company &c)
                         break;
                     case STOCK_CLOSE:
                         entry.close = atof(field.c_str());
+                        //find max and min open prices for entry
+                        if (entry.close >= entryMaxClose) entryMaxClose = entry.close;
+                        if (entry.close <= entryMinClose) entryMinClose = entry.close;
+                        entry.maxClose = entryMaxClose;
+                        entry.minClose = entryMinClose;
+
                         break;
                     case STOCK_VOLUME:
                         entry.volume = atoi(field.c_str());
