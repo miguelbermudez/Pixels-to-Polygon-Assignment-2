@@ -151,7 +151,7 @@ void testApp::readAndParseCSV(Company &c)
                     case STOCK_DATE:
                         //remove all the quotation marks
                         //fyi: string parsing and scrubbing is FUGLY in C
-                        field.erase( remove(field.begin(), field.end(), '\"'), field.end() );
+                        //field.erase( remove(field.begin(), field.end(), '\"'), field.end() );
                         //convert string date into long date (e.g time in seconds since the epoch)
                         entry.date = convertDate(field);
                         //lets remember human date for error checking, just in case
