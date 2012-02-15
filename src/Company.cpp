@@ -57,7 +57,7 @@ ofTexture Company::makeTexture(int texWidth, int texHeight)
     unsigned char *pixels;
     pixels = new unsigned char [texWidth * texHeight];
     
-    
+    int entryIndex = 0;
     //loop through pixels to populate texture data
     for (int y=0; y<texHeight; y++) {
         for (int x=0; x<texWidth; x++) {
@@ -70,11 +70,22 @@ ofTexture Company::makeTexture(int texWidth, int texHeight)
 
                 double xNoiseParam = (x * frequency) / zoom;
                 double yNoiseParam = (y / zoom) * frequency;
-                //double stockEntryContrib = 
+
+                double stockEntryContrib;    
+                
+                if (entryIndex  <= history.size()-1 ) {
+                    stockEntryContrib = getMappedValueFor(STOCK_CLOSE, entryIndex);
+                    entryIndex++;
+                    //cout << "entry Index: " << entryIndex << endl; //debugging
+                }
+                
+                xNoiseParam += stockEntryContrib;
+                yNoiseParam += stockEntryContrib;
                 
                 //getnoise += noise2(((double)x)*frequency/zoom,((double)y)/zoom*frequency)*amplitude;
                 //getnoise +=  ofNoise(xNoiseParam, yNoiseParam) * amplitude;
                 getnoise += gNoise::noise(xNoiseParam, yNoiseParam) * amplitude ;
+
             }
             //It gives a decimal value, you know, between the pixels. Like 4.2 or 5.1
             int color = (int)( (getnoise*128.0) + 128.0 ); //Convert to 0-256 values.
@@ -97,6 +108,31 @@ ofTexture Company::makeTexture(int texWidth, int texHeight)
 
     return heightMapTexture;
 
+}
+
+//------------------------------------------------------------
+double Company::getMappedValueFor( int field, int index ) 
+{
+    
+    stock_entry entry = history[index];
+    
+    double value = 0;
+    float mappedToUpperLimit = 1.0;
+    float mappedToLowerLimit = -1.0;
+    
+    switch (field) {
+        case STOCK_CLOSE:
+            value = ofMap(entry.close, entry.minClose, entry.maxClose, mappedToLowerLimit, mappedToUpperLimit);
+            break;
+        case STOCK_OPEN:
+            value = ofMap(entry.open, entry.minOpen, entry.maxOpen, mappedToLowerLimit, mappedToUpperLimit);
+            break;
+            
+        default:
+            break;
+    }
+    return value;   
+    
 }
 
 //------------------------------------------------------------

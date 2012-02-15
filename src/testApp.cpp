@@ -11,11 +11,13 @@ void testApp::setup(){
     cAmazon.name = "amazon";
     
     readAndParseCSV(cAmazon);
-    cAmazon.texture = cAmazon.makeTexture(512, 512); 
+    
+    //cout << cAmazon << endl;  //debugging
+    //cAmazon.printStockHistory();
     
     cout << cAmazon << endl;  //debugging
+    cAmazon.texture = cAmazon.makeTexture(512, 512); 
     test = cAmazon.texture;
-    cAmazon.printStockHistory();
     
 
 }

@@ -55,9 +55,10 @@ class Company
         void printStockHistory();
     
         ofTexture makeTexture(int texWidth, int texHeight);
+        double getMappedValueFor( int field, int index );
     
     private: 
-             
+
     
 };
 
