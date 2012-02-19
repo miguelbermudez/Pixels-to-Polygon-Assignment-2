@@ -1,6 +1,7 @@
 #include "testApp.h"
 #include "ofMath.h"
 
+#define POWERS_OF_TWO = [ 4,  16,  36,  64,  100,  144,  196,  256,  324,  400,  484,  576,  676,  784,  900,  1024 ]
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -12,10 +13,13 @@ void testApp::setup(){
     
     readAndParseCSV(cAmazon);
     
-    //cout << cAmazon << endl;  //debugging
-    //cAmazon.printStockHistory();
-    
     cout << cAmazon << endl;  //debugging
+    //cAmazon.printStockHistory();
+    textureSize = ofMap(cAmazon.avgVolume, cAmazon.minVolume, cAmazon.maxVolume, 256, 1024);
+    //TODO: put in method to grab the nearest POWERS_OF_TWO for texture size: selected POWERS_OF_TWO <= mapped textureSize
+    cout << textureSize << endl;
+    cout << ceil(textureSize) << endl;
+    
     cAmazon.texture = cAmazon.makeTexture(512, 512); 
     test = cAmazon.texture;
     
@@ -135,6 +139,11 @@ void testApp::readAndParseCSV(Company &c)
     float entryMinOpen = INT_MAX;
     float entryMaxClose = 0.0;
     float entryMinClose = INT_MAX;
+    int entryMaxVolume = 0.0;
+    int entryMinVolume = INT_MAX;
+    
+    //var to hold total volume (we need it for finding the average)
+    unsigned int totalVolume = 0;
 
     ifstream in("data/csv/amazon.csv");
     if (!in.is_open())
@@ -169,8 +178,8 @@ void testApp::readAndParseCSV(Company &c)
                         //find max and min open prices for entry
                         if (entry.open >= entryMaxOpen) entryMaxOpen = entry.open;
                         if (entry.open <= entryMinOpen) entryMinOpen = entry.open;
-                        entry.maxOpen = entryMaxOpen;
-                        entry.minOpen = entryMinOpen;
+                        c.maxOpen = entryMaxOpen;
+                        c.minOpen = entryMinOpen;
                         
                         break;
                     case STOCK_HIGH:
@@ -184,12 +193,17 @@ void testApp::readAndParseCSV(Company &c)
                         //find max and min open prices for entry
                         if (entry.close >= entryMaxClose) entryMaxClose = entry.close;
                         if (entry.close <= entryMinClose) entryMinClose = entry.close;
-                        entry.maxClose = entryMaxClose;
-                        entry.minClose = entryMinClose;
+                        c.maxClose = entryMaxClose;
+                        c.minClose = entryMinClose;
 
                         break;
                     case STOCK_VOLUME:
                         entry.volume = atoi(field.c_str());
+                        totalVolume += entry.volume;
+                        if (entry.volume >= entryMaxVolume) entryMaxVolume = entry.volume;
+                        if (entry.volume <= entryMinVolume) entryMinVolume = entry.volume;
+                        c.maxVolume = entryMaxVolume;
+                        c.minVolume = entryMinVolume;
                         break;
                     case STOCK_ADJCLOSE:
                         entry.adjClose = atof(field.c_str());
@@ -206,9 +220,11 @@ void testApp::readAndParseCSV(Company &c)
         if(entry.date != 0) {
             c.history.push_back(entry);
         }
+        
         cout << endl;
         lineIndex++;
     }
+    c.avgVolume = totalVolume / c.history.size();
     
     return;
 }

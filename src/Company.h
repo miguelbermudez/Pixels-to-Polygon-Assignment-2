@@ -31,15 +31,15 @@ struct stock_entry
     float   close; 
     int     volume;
     float   adjClose;
-    float   maxOpen;
-    float   minOpen;
-    float   maxClose;
-    float   minClose;
+    //float   maxOpen;
+    //float   minOpen;
+    //float   maxClose;
+    //float   minClose;
     string  humanDate;
     
 };
 
-const struct stock_entry STOCK_ENTRY_DEFAULT = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "" };
+const struct stock_entry STOCK_ENTRY_DEFAULT = { 0, 0, 0, 0, 0, 0, 0, "" };
 
 class Company 
 {
@@ -47,6 +47,14 @@ class Company
         Company();
     
         string name;
+        float minOpen;
+        float maxOpen;
+        float minClose;
+        float maxClose;
+        int avgVolume;
+        int minVolume;
+        int maxVolume;
+    
         vector<stock_entry> history;
         ofTexture texture;
         ofImage image;

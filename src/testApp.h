@@ -24,4 +24,5 @@ class testApp : public ofBaseApp{
         long convertDate(string dateString);
         
         ofTexture test;
+        int textureSize;
 };

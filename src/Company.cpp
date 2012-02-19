@@ -14,6 +14,7 @@
 Company::Company() 
 {
     history.clear();
+    minOpen = maxOpen = minClose = maxClose = minVolume = maxVolume = 0.0;
 }
 
 //------------------------------------------------------------
@@ -28,13 +29,13 @@ void Company::printStockHistory()
             cout << "\tEntry: " << index << endl;
             cout << "\t\tDate: " << se.date << endl;
             cout << "\t\tOpen: " << se.open << endl;
-            cout << "\t\t\tMax Open: " << se.maxOpen << endl;
-            cout << "\t\t\tMin Open: " << se.minOpen << endl;
+            //cout << "\t\t\tMax Open: " << se.maxOpen << endl;
+            //cout << "\t\t\tMin Open: " << se.minOpen << endl;
             cout << "\t\tHigh: " << se.high << endl;
             cout << "\t\tLow: " << se.low << endl;
             cout << "\t\tClose: " << se.close << endl;
-            cout << "\t\t\tMax Close: " << se.maxClose << endl;
-            cout << "\t\t\tMin Close: " << se.minClose << endl;
+            //cout << "\t\t\tMax Close: " << se.maxClose << endl;
+            //cout << "\t\t\tMin Close: " << se.minClose << endl;
             cout << "\t\tVolume: " << se.volume << endl;
             cout << "\t\tAdjClose: " << se.adjClose << endl;
             cout << "\t\tHumanDate: " << se.humanDate << endl;
@@ -122,12 +123,14 @@ double Company::getMappedValueFor( int field, int index )
     
     switch (field) {
         case STOCK_CLOSE:
-            value = ofMap(entry.close, entry.minClose, entry.maxClose, mappedToLowerLimit, mappedToUpperLimit);
+            value = ofMap(entry.close, minClose, maxClose, mappedToLowerLimit, mappedToUpperLimit);
             break;
         case STOCK_OPEN:
-            value = ofMap(entry.open, entry.minOpen, entry.maxOpen, mappedToLowerLimit, mappedToUpperLimit);
+            value = ofMap(entry.open, minOpen, maxOpen, mappedToLowerLimit, mappedToUpperLimit);
             break;
-            
+        case STOCK_VOLUME:
+            value = ofMap(entry.volume, minVolume, maxVolume, mappedToUpperLimit, mappedToUpperLimit);
+            break;
         default:
             break;
     }
@@ -139,7 +142,15 @@ double Company::getMappedValueFor( int field, int index )
 string Company::toString() const 
 {
     stringstream ss;
-    ss << "Company -- " << name  << "\n" << "\t Stock Entries: " << (int)history.size() << endl;
+    ss << "Company -- " << name  << "\n" << "\t Stock Entries: " << (int)history.size() 
+                                 << "\n" << "\t Max Open: " << maxOpen 
+                                 << "\n" << "\t Min Open: " << minOpen
+                                 << "\n" << "\t Max Close: " << maxClose 
+                                 << "\n" << "\t Min Close: " << minClose
+                                 << "\n" << "\t Max Volume: " << maxVolume 
+                                 << "\n" << "\t Min Volume: " << minVolume
+                                 << "\n" << "\t Avg Volume: " << avgVolume
+                                 << endl;
     return ss.str();
 }
 
